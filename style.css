@@ -1,0 +1,98 @@
+@font-face {
+    font-family: 'HuiFont29';
+    src: url('./webfonts/HuiFont29.ttf') format('truetype');
+}
+
+.content{
+    margin: auto;
+    text-align: center;
+    font-family:"HuiFont29";
+}
+
+.answer-color{
+    background-color: rgb(150, 150, 150);
+}
+
+.qa-style{
+    border-radius: 50%;
+    /*
+    width: 25%;
+    height: 25%;
+
+    height: 100px;
+    width: 100px;
+
+    padding-top: 50%;
+    padding-bottom: 50%;
+
+    width:50%;
+    height:auto;
+*/
+    text-align:center;
+
+    padding-top: 50%;
+    padding-bottom: 50%;
+
+}
+
+.up-icon-red::before {
+	content:'\f139';
+    font-family:'Font Awesome 5 Free';
+    font-weight: 900; 
+    color: red;
+    position: relative;
+    margin: auto;
+
+}
+.down-icon-red::before {
+	content:'\f13a';
+    font-family:'Font Awesome 5 Free';
+    font-weight: 900; 
+    color: red;
+}
+
+.up-icon-green::before {
+	content:'\f139';
+    font-family:'Font Awesome 5 Free';
+    font-weight: 900; 
+    color: green;
+
+}
+.down-icon-green::before {
+	content:'\f13a';
+    font-family:'Font Awesome 5 Free';
+    font-weight: 900; 
+    color: green;
+}
+.up-icon-blue::before {
+	content:'\f139';
+    font-family:'Font Awesome 5 Free';
+    font-weight: 900; 
+    color: blue;
+
+}
+.down-icon-blue::before {
+	content:'\f13a';
+    font-family:'Font Awesome 5 Free';
+    font-weight: 900; 
+    color: blue;
+}
+.buttn-width{
+    margin: auto;
+}
+
+.space-50{
+    height:50px;
+}
+.space-40{
+    height:40px;
+}
+.space-30{
+    height:30px;
+}
+.space-20{
+    height:20px;
+}
+.space-10{
+    height:10px;
+}

@@ -5,19 +5,19 @@ var minValue = 0;
 //50刻みの場合で250を最大としたとき250/50で５段階ある
 //０～５で数値出して、それに５０かける
 
-function randam(){
+function random(){
     return (Math.floor(Math.random() * (maxValue / cangeValue + 1 - 0)) + 0)*50;
 }
 
-function randamColor(){
+function randomColor(){
 
-    var randamColorTxt ="";
-    while(randamColorTxt=="" || randamColorTxt =="rgb(150, 150, 150)"){
-        randamColorTxt = "rgb(" + String(randam()) + ", " + String(randam()) + ", " + String(randam()) + ")";
+    var randomColorTxt ="";
+    while(randomColorTxt=="" || randomColorTxt =="rgb(150, 150, 150)"){
+        randomColorTxt = "rgb(" + String(random()) + ", " + String(random()) + ", " + String(random()) + ")";
     }
 
-    console.log(randamColorTxt);
-    return randamColorTxt;
+    console.log(randomColorTxt);
+    return randomColorTxt;
 }
 
 function changeRgbValue(upOrDown,color){
@@ -67,7 +67,7 @@ function compareColor(){
 }
 
 $(function(){
-    　　$("#question").css('background-color',randamColor);
+    　　$("#question").css('background-color',randomColor);
         $('#up-red').click(function() {
             changeRgbValue("up","red");
             compareColor();

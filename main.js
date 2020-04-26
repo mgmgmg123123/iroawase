@@ -63,6 +63,8 @@ function compareColor(){
     var qColor = $('#question').css('background-color');
     if(aColor==qColor){
         $("#message").html('色合わせ成功！<br class="d-block d-sm-none">おめでとう！');
+        $('#restert-buttn-messeage').empty()
+        $('#restert-buttn-messeage').text('もう一度遊ぶ');
     }
 }
 
@@ -94,3 +96,11 @@ $(function(){
         })
         
 });
+
+$('#restert-buttn').click(function() {
+    $('#message').empty();
+    $('#question').css('background-color',randomColor);
+    $('#restert-buttn-messeage').empty()
+    $('#restert-buttn-messeage').text('はじめから');
+    $('#answer').css('background-color','rgb(150, 150, 150)');
+})

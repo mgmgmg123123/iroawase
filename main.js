@@ -175,11 +175,12 @@ function recordDisplay(){
 
 function twitterUrl(){
 
-    var thisUrl = "url="+location.href+"?";
-    var hashtags = "hashtags="+"RGBあわせ"+"?";
-    var tweetTime = $('#record').text();
-    var text = "text="+tweetTime+"で色合わせ成功！あなたも挑戦してみよう！";
+    var thisUrl = "url="+encodeURIComponent(location.href)+"&";
+    var hashtags = "hashtags="+encodeURIComponent("RGBあわせ")+"&";
+    var tweetTime = encodeURIComponent($('#record').text());
+    var text = "text="+tweetTime+encodeURIComponent("で色合わせ成功！あなたも挑戦してみよう！");
     var url="https://twitter.com/share?"+thisUrl+hashtags+text;
+    //url = encodeURIComponent(url);
     console.log(url);
 
     $('#twitter').attr('href',url);

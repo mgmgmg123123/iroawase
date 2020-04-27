@@ -1,11 +1,15 @@
 var changeValue = 50;
 var maxValue = 250;
 var minValue = 0;
-
 var startTime= 0;
-var endTime= 0;
-var elapsedTime=0;
 var repetition;
+
+//見本の色
+var randomColorTxt ="";
+//経過時間
+var m = 0;
+var s = 0;
+
 
 //タイマーが動いているか判断するフラグ
 //trueで動いている状態
@@ -34,14 +38,15 @@ function stopTimer(){
 
 //経過時間を画面時表示させる処理
 function updateTime(){
-    elapsedTime = Date.now() - startTime;
+    var elapsedTime = Date.now() - startTime;
     var tempS =Math.floor(elapsedTime/1000);
-    var m =Math.floor(tempS/60);
-    var s =Math.floor(tempS-m*60);
+    m =Math.floor(tempS/60);
+    s =Math.floor(tempS-m*60);
     $('#timer').text(zeroPadding(m,2)+":"+zeroPadding(s,2));
 
     //時間制限処理呼び出し
-    if($('#timer').text() == "30:00"){
+    //30分が制限時間
+    if(elapsedTime>(30*60*1000)){
         timeOver();
     }
 }
@@ -97,7 +102,6 @@ function random(){
 }
 
 function randomColor(){
-    var randomColorTxt ="";
     while(randomColorTxt=="" || randomColorTxt =="rgb(150, 150, 150)"){
         randomColorTxt = "rgb(" + String(random()) + ", " + String(random()) + ", " + String(random()) + ")";
     }
@@ -153,8 +157,37 @@ function compareColor(){
         buttonSwitchDisplay('none');
         $('#restart-button-message').empty();
         $('#restart-button-message').text('もう一度遊ぶ');
+        recordDisplay();
     }
 }
+
+function recordDisplay(){
+
+    if(m==0){
+        $('#record').text(s+'秒でクリア！');
+    }else{
+        $('#record').text(m+'分'+s+'秒でクリア！');
+    }
+    twitterUrl();
+    $("#record-area").css('display','block');
+}
+
+
+function twitterUrl(){
+
+    var thisUrl = "url="+location.href+"?";
+    var hashtags = "hashtags="+"RGBあわせ"+"?";
+    var tweetTime = $('#record').text();
+    var text = "text="+tweetTime+"で色合わせ成功！あなたも挑戦してみよう！";
+    var url="https://twitter.com/share?"+thisUrl+hashtags+text;
+    console.log(url);
+
+    $('#twitter').attr('href',url);
+
+    console.log("href："+$('#twitter').attr('href'));
+
+}
+
 
 $("#question").css('background-color',randomColor);
 

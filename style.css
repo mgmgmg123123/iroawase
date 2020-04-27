@@ -93,3 +93,7 @@
 .space-10{
     height:10px;
 }
+
+#record-area{
+    display: none;
+}

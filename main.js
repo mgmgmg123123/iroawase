@@ -14,24 +14,22 @@ var timerFlag = false;
 //タイマーをスタートさせる処理
 function startTimer(){
     if(timerFlag == false){
-        $('#timer').text("00:00");
         startTime = Date.now();
+        repetitionDisplay();
         timerFlag=true;
     }
 }
 
 //タイマーを初期状態に戻す処理
 function restartTimer(){
-    if(timerFlag == true){
-        $('#timer').text("00:00");
-        timerFlag=false;
-    }
+    $('#timer').text("00:00");
+    timerFlag=false;
 }
 
 //タイマーを止める処理
 function stopTimer(){
-    timerFlag=false;
     clearInterval(repetition);
+    timerFlag=false;
 }
 
 //経過時間を画面時表示させる処理
@@ -50,10 +48,10 @@ function updateTime(){
 
 //時間切れ処理
 function timeOver(){
+    stopTimer();
     $("#message").html('時間切れ！<br class="d-block d-sm-none">もう一度挑戦しよう！');
     $('#restart-button-message').empty()
     $('#restart-button-message').text('もう一度遊ぶ');
-    stopTimer();
     buttonSwitchDisplay("none");
 }
 
@@ -68,11 +66,13 @@ function zeroPadding(num,length){
 }
 
 //経過時間表示繰り返し処理
-repetition = setInterval(function(){
-    if(timerFlag==true){
-        updateTime();  
-    }
-},1000);
+function repetitionDisplay(){
+    repetition = setInterval(function(){
+        if(timerFlag==true){
+            updateTime();  
+        }
+    },1000);    
+}
 
 //ボタン非表示処理
 //引数に応じて以下の処理をする
@@ -148,47 +148,48 @@ function compareColor(){
     var aColor = $('#answer').css('background-color');
     var qColor = $('#question').css('background-color');
     if(aColor==qColor){
-        $("#message").html('色合わせ成功！<br class="d-block d-sm-none">おめでとう！');
-        buttonSwitchDisplay("none");
-        $('#restart-button-message').empty()
-        $('#restart-button-message').text('もう一度遊ぶ');
         stopTimer();
+        $("#message").html('色合わせ成功！<br class="d-block d-sm-none">おめでとう！');
+        buttonSwitchDisplay('none');
+        $('#restart-button-message').empty();
+        $('#restart-button-message').text('もう一度遊ぶ');
     }
 }
 
-$(function(){
-    　　$("#question").css('background-color',randomColor);
-        $('#up-red').click(function() {
-            changeRgbValue("up","red");
-            compareColor();
-        })
-        $('#down-red').click(function() {
-            changeRgbValue("down","red");
-            compareColor();
-        })
-        $('#up-green').click(function() {
-            changeRgbValue("up","green");
-            compareColor();
-        })
-        $('#down-green').click(function() {
-            changeRgbValue("down","green");
-            compareColor();
-        })
-        $('#up-blue').click(function() {
-            changeRgbValue("up","blue");
-            compareColor();
-        })
-        $('#down-blue').click(function() {
-            changeRgbValue("down","blue");
-            compareColor();
-        })
-        //
-        $('#up-red,#down-red,#up-green,#down-green,#up-blue,#down-blue').click(function(){
-            if(timerFlag == false){
-                startTimer();
-            }
-        });
+$("#question").css('background-color',randomColor);
+
+$('#up-red,#down-red,#up-green,#down-green,#up-blue,#down-blue').click(function(){
+    if(timerFlag == false){
+        startTimer();
+    }
 });
+
+$('#up-red').click(function() {
+    changeRgbValue("up","red");
+    compareColor();
+})
+$('#down-red').click(function() {
+    changeRgbValue("down","red");
+    compareColor();
+})
+$('#up-green').click(function() {
+    changeRgbValue("up","green");
+    compareColor();
+})
+$('#down-green').click(function() {
+    changeRgbValue("down","green");
+    compareColor();
+})
+$('#up-blue').click(function() {
+    changeRgbValue("up","blue");
+    compareColor();
+})
+$('#down-blue').click(function() {
+    changeRgbValue("down","blue");
+    compareColor();
+})
+
+
 
 $('#restart-button').click(function() {
     $('#message').empty();

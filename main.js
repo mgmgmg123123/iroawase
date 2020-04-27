@@ -4,7 +4,6 @@ var minValue = 0;
 
 //50刻みの場合で250を最大としたとき250/50で５段階ある
 //０～５で数値出して、それに５０かける
-
 function random(){
     return (Math.floor(Math.random() * (maxValue / cangeValue + 1 - 0)) + 0)*50;
 }
@@ -94,7 +93,6 @@ $(function(){
             changeRgbValue("down","blue");
             compareColor();
         })
-        
 });
 
 $('#restert-buttn').click(function() {
@@ -104,3 +102,4 @@ $('#restert-buttn').click(function() {
     $('#restert-buttn-messeage').text('はじめから');
     $('#answer').css('background-color','rgb(150, 150, 150)');
 })
+

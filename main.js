@@ -1,11 +1,90 @@
-var cangeValue = 50;
+var changeValue = 50;
 var maxValue = 250;
 var minValue = 0;
+
+var startTime= 0;
+var endTime= 0;
+var elapsedTime=0;
+var repetition;
+
+//タイマーが動いているか判断するフラグ
+//trueで動いている状態
+var timerFlag = false;
+
+//タイマーをスタートさせる処理
+function startTimer(){
+    if(timerFlag == false){
+        startTime = Date.now();
+        timerFlag=true;
+    }
+
+}
+//タイマーを止める処理
+function stopTimer(){
+    timerFlag=false;
+    clearInterval(repetition);
+}
+
+//経過時間を画面時表示させる処理
+function updateTime(){
+    elapsedTime = Date.now() - startTime;
+    var tempS =Math.floor(elapsedTime/1000);
+    var m =Math.floor(tempS/60);
+    var s =Math.floor(tempS-m*60);
+    $('#timer').text(zeroPadding(m,2)+":"+zeroPadding(s,2));
+
+    //時間制限処理呼び出し
+    if($('#timer').text() == "30:00"){
+        timeOver();
+    }
+}
+
+//時間切れ処理
+function timeOver(){
+    $("#message").html('時間切れ！<br class="d-block d-sm-none">もう一度挑戦しよう！');
+    $('#restart-button-message').empty()
+    $('#restart-button-message').text('もう一度遊ぶ');
+    stopTimer();
+    buttonSwitchDisplay("none");
+}
+
+//ゼロ埋め処理
+//lengthの長さになるまで、num(数値)をゼロ埋めする。
+function zeroPadding(num,length){
+    strNum = String(num);
+    while(strNum.length < length){
+        strNum = "0" + strNum;
+    };
+    return strNum;
+}
+
+//経過時間表示繰り返し処理
+repetition = setInterval(function(){
+    if(timerFlag==true){
+        updateTime();  
+    }
+},1000);
+
+//ボタン非表示処理
+//引数に応じて以下の処理をする
+//block　 :表示
+//none 　 :非表示
+//それ以外：なにもしない
+function buttonSwitchDisplay(strArg){
+    if(strArg=="block"){
+        $("#buttons").css('display','block');
+    }else if(strArg=="none"){
+        $("#buttons").css('display','none');
+    }else{
+        return;
+    }
+
+}
 
 //50刻みの場合で250を最大としたとき250/50で５段階ある
 //０～５で数値出して、それに５０かける
 function random(){
-    return (Math.floor(Math.random() * (maxValue / cangeValue + 1 - 0)) + 0)*50;
+    return (Math.floor(Math.random() * (maxValue / changeValue + 1 - 0)) + 0)*50;
 }
 
 function randomColor(){
@@ -37,9 +116,9 @@ function changeRgbValue(upOrDown,color){
     var intValue = Number(array[checkIndex]);
 
     if(upOrDown == "up"){
-        intValue = intValue + cangeValue;
+        intValue = intValue + changeValue;
     }else if(upOrDown == "down"){
-        intValue = intValue - cangeValue;
+        intValue = intValue - changeValue;
     }
 
     if(intValue > maxValue){
@@ -62,8 +141,9 @@ function compareColor(){
     var qColor = $('#question').css('background-color');
     if(aColor==qColor){
         $("#message").html('色合わせ成功！<br class="d-block d-sm-none">おめでとう！');
-        $('#restert-buttn-messeage').empty()
-        $('#restert-buttn-messeage').text('もう一度遊ぶ');
+        $('#restart-button-message').empty()
+        $('#restart-button-message').text('もう一度遊ぶ');
+        stopTimer();
     }
 }
 
@@ -93,13 +173,19 @@ $(function(){
             changeRgbValue("down","blue");
             compareColor();
         })
+        //
+        $('#up-red,#down-red,#up-green,#down-green,#up-blue,#down-blue').click(function(){
+            if(timerFlag == false){
+                startTimer();
+            }
+        });
 });
 
-$('#restert-buttn').click(function() {
+$('#restart-button').click(function() {
     $('#message').empty();
     $('#question').css('background-color',randomColor);
-    $('#restert-buttn-messeage').empty()
-    $('#restert-buttn-messeage').text('はじめから');
+    $('#restart-button-message').empty()
+    $('#restart-button-message').text('はじめから');
     $('#answer').css('background-color','rgb(150, 150, 150)');
 })
 

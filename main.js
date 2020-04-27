@@ -14,11 +14,20 @@ var timerFlag = false;
 //タイマーをスタートさせる処理
 function startTimer(){
     if(timerFlag == false){
+        $('#timer').text("00:00");
         startTime = Date.now();
         timerFlag=true;
     }
-
 }
+
+//タイマーを初期状態に戻す処理
+function restartTimer(){
+    if(timerFlag == true){
+        $('#timer').text("00:00");
+        timerFlag=false;
+    }
+}
+
 //タイマーを止める処理
 function stopTimer(){
     timerFlag=false;
@@ -88,7 +97,6 @@ function random(){
 }
 
 function randomColor(){
-
     var randomColorTxt ="";
     while(randomColorTxt=="" || randomColorTxt =="rgb(150, 150, 150)"){
         randomColorTxt = "rgb(" + String(random()) + ", " + String(random()) + ", " + String(random()) + ")";
@@ -141,6 +149,7 @@ function compareColor(){
     var qColor = $('#question').css('background-color');
     if(aColor==qColor){
         $("#message").html('色合わせ成功！<br class="d-block d-sm-none">おめでとう！');
+        buttonSwitchDisplay("none");
         $('#restart-button-message').empty()
         $('#restart-button-message').text('もう一度遊ぶ');
         stopTimer();
@@ -184,8 +193,9 @@ $(function(){
 $('#restart-button').click(function() {
     $('#message').empty();
     $('#question').css('background-color',randomColor);
-    $('#restart-button-message').empty()
+    $('#restart-button-message').empty();
     $('#restart-button-message').text('はじめから');
     $('#answer').css('background-color','rgb(150, 150, 150)');
-})
-
+    buttonSwitchDisplay("block");
+    restartTimer();
+});

@@ -93,15 +93,15 @@ function randomColor(){
         randomColorTxt = "rgb(" + String(random()) + ", " + String(random()) + ", " + String(random()) + ")";
     }
 
-    console.log(randomColorTxt);
+    //console.log(randomColorTxt);
     return randomColorTxt;
 }
 
 function changeRgbValue(upOrDown,color){
     var rgb = $('#answer').css('background-color');
     var array = rgb.match(/^\D+(\d+)\D+(\d+)\D+(\d+)\D+$/);
-    console.log(upOrDown+": "+color)
-    console.log("before"+array[1]+","+array[2]+","+array[3]);
+    //console.log(upOrDown+": "+color)
+    //console.log("before"+array[1]+","+array[2]+","+array[3]);
 
     var checkIndex;
     if(color=="red"){
@@ -128,7 +128,7 @@ function changeRgbValue(upOrDown,color){
         array[checkIndex] = String(intValue);
     }
 
-    console.log("after"+array[1]+","+array[2],array[3]);
+    //console.log("after"+array[1]+","+array[2],array[3]);
     var nextColor="rgb("+array[1]+","+array[2]+","+array[3]+")";
     $("#answer").css('background-color',nextColor);
 
@@ -167,10 +167,10 @@ function twitterUrl(){
     var tweetTime = encodeURIComponent($('#record').text());
     var text = "text="+tweetTime+encodeURIComponent("あなたも挑戦してみよう！");
     var url="https://twitter.com/share?"+thisUrl+hashtags+text;
-    console.log(url);
+    //console.log(url);
 
     $('#twitter').attr('href',url);
-    console.log("href："+$('#twitter').attr('href'));
+    //console.log("href："+$('#twitter').attr('href'));
 
 }
 

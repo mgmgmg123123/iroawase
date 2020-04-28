@@ -15,19 +15,6 @@
 
 .qa-style{
     border-radius: 50%;
-    /*
-    width: 25%;
-    height: 25%;
-
-    height: 100px;
-    width: 100px;
-
-    padding-top: 50%;
-    padding-bottom: 50%;
-
-    width:50%;
-    height:auto;
-*/
     text-align:center;
 
     padding-top: 50%;
@@ -78,6 +65,26 @@
     color: blue;
 }
 
+.twitter-button{
+    padding: 10px 0px;
+}
+
+.twitter-link{
+    position:relative;
+    line-height:1.3em;
+    padding-left:1.5em;
+}
+
+.twitter-link::before {
+    
+	content:'\f099';
+    font-family:'Font Awesome 5 Brands';
+    font-weight: 900; 
+    color: black;
+    position:absolute;
+    display:inline-block;
+    left:0;
+}
 .space-50{
     height:50px;
 }

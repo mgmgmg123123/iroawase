@@ -10,7 +10,6 @@ var randomColorTxt ="";
 var m = 0;
 var s = 0;
 
-
 //タイマーが動いているか判断するフラグ
 //trueで動いている状態
 var timerFlag = false;
@@ -45,7 +44,7 @@ function updateTime(){
     $('#timer').text(zeroPadding(m,2)+":"+zeroPadding(s,2));
 
     //時間制限処理呼び出し
-    //30分が制限時間
+    //30分が制限時間30*60*1000
     if(elapsedTime>(30*60*1000)){
         timeOver();
     }
@@ -57,7 +56,7 @@ function timeOver(){
     $("#message").html('時間切れ！<br class="d-block d-sm-none">もう一度挑戦しよう！');
     $('#restart-button-message').empty()
     $('#restart-button-message').text('もう一度遊ぶ');
-    buttonSwitchDisplay("none");
+    $("#buttons").css('display','none');
 }
 
 //ゼロ埋め処理
@@ -79,30 +78,18 @@ function repetitionDisplay(){
     },1000);    
 }
 
-//ボタン非表示処理
-//引数に応じて以下の処理をする
-//block　 :表示
-//none 　 :非表示
-//それ以外：なにもしない
-function buttonSwitchDisplay(strArg){
-    if(strArg=="block"){
-        $("#buttons").css('display','block');
-    }else if(strArg=="none"){
-        $("#buttons").css('display','none');
-    }else{
-        return;
-    }
-
-}
-
 //50刻みの場合で250を最大としたとき250/50で５段階ある
-//０～５で数値出して、それに５０かける
+//0～5で数値算出し、結果に50をかけている
+//0～250間の50の倍数を返す
 function random(){
     return (Math.floor(Math.random() * (maxValue / changeValue + 1 - 0)) + 0)*50;
 }
 
 function randomColor(){
-    while(randomColorTxt=="" || randomColorTxt =="rgb(150, 150, 150)"){
+
+    randomColorTxt = "rgb(" + String(random()) + ", " + String(random()) + ", " + String(random()) + ")";
+
+    while(randomColorTxt =="rgb(150, 150, 150)"){
         randomColorTxt = "rgb(" + String(random()) + ", " + String(random()) + ", " + String(random()) + ")";
     }
 
@@ -142,19 +129,19 @@ function changeRgbValue(upOrDown,color){
     }
 
     console.log("after"+array[1]+","+array[2],array[3]);
-
     var nextColor="rgb("+array[1]+","+array[2]+","+array[3]+")";
     $("#answer").css('background-color',nextColor);
 
 }
 
 function compareColor(){
+
     var aColor = $('#answer').css('background-color');
     var qColor = $('#question').css('background-color');
     if(aColor==qColor){
         stopTimer();
         $("#message").html('色合わせ成功！<br class="d-block d-sm-none">おめでとう！');
-        buttonSwitchDisplay('none');
+        $("#buttons").css('display','none');
         $('#restart-button-message').empty();
         $('#restart-button-message').text('もう一度遊ぶ');
         recordDisplay();
@@ -183,11 +170,9 @@ function twitterUrl(){
     console.log(url);
 
     $('#twitter').attr('href',url);
-
     console.log("href："+$('#twitter').attr('href'));
 
 }
-
 
 $("#question").css('background-color',randomColor);
 
@@ -222,14 +207,13 @@ $('#down-blue').click(function() {
     compareColor();
 })
 
-
-
 $('#restart-button').click(function() {
-    $('#message').empty();
+    restartTimer();
     $('#question').css('background-color',randomColor);
+    $('#message').empty();
     $('#restart-button-message').empty();
     $('#restart-button-message').text('はじめから');
     $('#answer').css('background-color','rgb(150, 150, 150)');
-    buttonSwitchDisplay("block");
-    restartTimer();
+    $("#record-area").css('display','none');
+    $("#buttons").css('display','block');
 });
